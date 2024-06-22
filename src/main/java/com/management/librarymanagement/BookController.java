@@ -142,13 +142,13 @@ public class BookController implements Initializable {
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows > 0) {
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Book deleted successfully.");
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Book issued successfully.");
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "No book found with the given ID.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred while deleting the book.");
+            showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred while issuing the book.");
         }
 
         showBook();
@@ -189,19 +189,33 @@ public class BookController implements Initializable {
         id_button.clear();
     }
 
-    public void addPatron(){
+    public void addPatron() throws SQLException {
         String sql = "INSERT INTO Patron (name, email, phone, address, book) VALUES (?, ?, ?, ?, ?)";
-        try {
-            executeQuery(sql);
+        Connection conn = DatabaseConnection.getConnection();
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+            preparedStatement.setString(1, name_filed.getText());
+            preparedStatement.setString(2, email_field.getText());
+            preparedStatement.setString(3, phone_field.getText());
+            preparedStatement.setString(4, address_field.getText());
+            preparedStatement.setString(5, book_field.getText());
+
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows > 0) {
+               // showAlert(Alert.AlertType.INFORMATION, "Patron Added", "Patron added successfully.");
+            } else {
+               // showAlert(Alert.AlertType.ERROR, "Error", "Failed to add patron.");
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            //showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred while adding the patron.");
         }
         name_filed.clear();
-            email_field.clear();
-            phone_field.clear();
-            address_field.clear();
-            book_field.clear();
+        email_field.clear();
+        phone_field.clear();
+        address_field.clear();
+        book_field.clear();
     }
+
 
     public void addTransaction() {
         String sql = "INSERT INTO Transactions (itemId, patronId, borrowDate, returnDate) " +
@@ -226,13 +240,13 @@ public class BookController implements Initializable {
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows > 0) {
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Transaction added successfully.");
+               // showAlert(Alert.AlertType.INFORMATION, "Success", "Transaction added successfully.");
             } else {
-                showAlert(Alert.AlertType.ERROR, "Error", "No transaction was created.");
+               // showAlert(Alert.AlertType.ERROR, "Error", "No transaction was created.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred while adding the transaction.");
+           // showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred while adding the transaction.");
         }
     }
 
