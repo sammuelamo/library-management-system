@@ -167,7 +167,7 @@ public class BookController implements Initializable {
             preparedStatement.setString(3, genre_field.getText());
             preparedStatement.setString(4, publisherField.getText());
 
-            preparedStatement.executeUpdate();
+            //preparedStatement.executeUpdate();
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows > 0) {
                 showAlert(Alert.AlertType.INFORMATION, "Book Updated", "Book updated successfully.");
@@ -246,8 +246,9 @@ public class BookController implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-           // showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred while adding the transaction.");
+            // showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred while adding the transaction.");
         }
+
     }
 
     public void executeQuery(String query) throws SQLException {

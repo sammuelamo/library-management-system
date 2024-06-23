@@ -1,5 +1,7 @@
 # Library Management System
 
+This is a link to the loom video recording describing how the library system works and the various concepts that were applied
+
 This is a simple library management system implemented in Java using JavaFX for the user interface and JDBC for database connectivity.
 
 ## Table of Contents
